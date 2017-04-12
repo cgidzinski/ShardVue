@@ -1,21 +1,16 @@
 <template>
     <div id="app">
-        <webgl-composer class="shards" background="#ff5454" zoom=2.0 x_offset=0.0 y_offset=0.0 fov=70 v-html="children"> </webgl-composer>
-        <hr>
-        <button v-on:click="add">New Item</button>
-        <button v-on:click="clear">Clear</button>
-        <br>
+        <h1>Vue.js + shards.js</h1>
+        <webgl-composer class="shards" background="#ff5454" zoom=1.0 x_offset=0.0 y_offset=0.0 fov=70 v-html="children"> </webgl-composer>
+        <div id="actions">
+            <button v-on:click="add">New Item</button>
+            <button v-on:click="clear">Clear</button>
+        </div>
         <div v-for="node in childNodes">
             <hr>
             <ul>
-                <li>Node: {{ node.id }} </li>
-                <li>src:
-                    <select v-model="node.src" v-on:change="render">
-                        <option value="./lyninx.svg">Text</option>
-                        <option value="./lyninx_inkscape.svg">Logo</option>
-                    </select> {{ node.src }} </li>
-                <li>color:
-                    <input type="color" v-model="node.color" v-on:change="render"> [{{ node.color }}] </li>
+                <li>
+                    <h3> Node: {{ node.id }}</h3></li>
                 <li>explode duration:
                     <input type="range" min="0.1" step="0.1" v-model="node.explodeDur" v-on:change="render"> [{{ node.explodeDur }}] </li>
                 <li>explode delay:
@@ -28,7 +23,20 @@
                     <input type="range" min="0.1" step="0.1" v-model="node.fadeDur" v-on:change="render"> [{{ node.fadeDur }}] </li>
                 <li>fade delay:
                     <input type="range" step="0.1" v-model="node.fadeDel" v-on:change="render"> [{{ node.fadeDel }}] </li>
-            </ul>
+                <br>
+                <li>source: {{ node.src }}</li>
+                <li>
+                    <select v-model="node.src" v-on:change="render">
+                        <option value="./lyninx.svg">lyninx Text</option>
+                        <option value="./lyninx_inkscape.svg">lyninx Logo</option>
+                        <option value="./vue.svg">Vue Logo</option>
+                    </select>
+                </li>
+                <br>
+                <li>color: {{ node.color }}</li>
+                <li>
+                    <input type="color" v-model="node.color" v-on:change="render"> </li>
+                <br> </ul>
         </div>
     </div>
 </template>
@@ -47,11 +55,11 @@ export default {
             for (var i = this.childNodes.length - 1; i >= 0; i--) {
                 var node = this.childNodes[i]
                 this.children += `
-    		<c-layer id="` + node.id + `" src="` + node.src + `" color="` + node.color + `" z_depth="0.0" scale="1.0">
-    		<c-animation type="explode" duration="` + node.explodeDur + `" delay="` + node.explodeDel + `" looping="true"></c-animation>
-    		<c-animation type="spin" duration="` + node.spinDur + `" delay="` + node.spinDel + `" looping="true"></c-animation>
-    		<c-animation type="fade-in" duration="` + node.fadeDur + `" delay="` + node.fadeDel + `" looping="true"></c-animation>
-    		</c-layer>`
+            <c-layer id="` + node.id + `" src="` + node.src + `" color="` + node.color + `" z_depth="0.0" scale="1.0">
+            <c-animation type="explode" duration="` + node.explodeDur + `" delay="` + node.explodeDel + `" looping="true"></c-animation>
+            <c-animation type="spin" duration="` + node.spinDur + `" delay="` + node.spinDel + `" looping="true"></c-animation>
+            <c-animation type="fade-in" duration="` + node.fadeDur + `" delay="` + node.fadeDel + `" looping="true"></c-animation>
+            </c-layer>`
             }
         },
         add: function() {
@@ -82,17 +90,33 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: left;
-    margin-top: 60px;
+}
+
+#actions {
+    padding: 20px;
+    text-align: center;
 }
 
 h1,
 h2 {
+    text-align: center;
     font-weight: normal;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
+}
+
+button {
+    background-color: #ff5454;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 li {
