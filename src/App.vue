@@ -97,6 +97,10 @@ export default {
     text-align: center;
 }
 
+body {
+    overflow-y: scroll;
+}
+
 h1,
 h2 {
     text-align: center;
