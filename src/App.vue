@@ -23,12 +23,10 @@
                     <input type="range" min="0.1" step="0.1" v-model="node.fadeDur" v-on:change="render"> [{{ node.fadeDur }}] </li>
                 <li>fade delay:
                     <input type="range" step="0.1" v-model="node.fadeDel" v-on:change="render"> [{{ node.fadeDel }}] </li>
-
                 <li>x offset:
-                    <input type="range" min="-10" step="0.1" max="10" v-model="node.x_offset" v-on:change="render"> [{{ node.x_offset }}] </li>
+                    <input type="range" min="-100" step="1" max="100" v-model="node.x_offset" v-on:change="render"> [{{ node.x_offset }}] </li>
                 <li>y offset:
-                    <input type="range" min="-10" step="0.1" max="10" v-model="node.y_offset" v-on:change="render"> [{{ node.y_offset }}] </li>
-
+                    <input type="range" min="-20" step="1" max="20" v-model="node.y_offset" v-on:change="render"> [{{ node.y_offset }}] </li>
                 <br>
                 <li>source: {{ node.src }}</li>
                 <li>
@@ -79,8 +77,8 @@ export default {
                 "spinDel": "4.0",
                 "fadeDur": "4.0",
                 "fadeDel": "0",
-                "x_offset":"0",
-                "y_offset":"0"
+                "x_offset": "0",
+                "y_offset": "0"
             }
             this.childNodes.push(node)
             this.render()
@@ -93,6 +91,10 @@ export default {
 }
 </script>
 <style lang="scss">
+.shards {
+    height: 400px;
+}
+
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -106,6 +108,8 @@ export default {
 }
 
 body {
+    color: #FFF;
+    background-color: #222;
     overflow-y: scroll;
 }
 
