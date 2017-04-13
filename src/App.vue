@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h1>Vue.js + shards.js</h1>
+        <h1>Vue.js + webGL composer</h1>
         <webgl-composer class="shards" background="#ff5454" zoom=1.0 x_offset=0.0 y_offset=0.0 fov=70 v-html="children"> </webgl-composer>
         <div id="actions">
             <button v-on:click="add">New Item</button>
@@ -23,6 +23,12 @@
                     <input type="range" min="0.1" step="0.1" v-model="node.fadeDur" v-on:change="render"> [{{ node.fadeDur }}] </li>
                 <li>fade delay:
                     <input type="range" step="0.1" v-model="node.fadeDel" v-on:change="render"> [{{ node.fadeDel }}] </li>
+
+                <li>x offset:
+                    <input type="range" min="-10" step="0.1" max="10" v-model="node.x_offset" v-on:change="render"> [{{ node.x_offset }}] </li>
+                <li>y offset:
+                    <input type="range" min="-10" step="0.1" max="10" v-model="node.y_offset" v-on:change="render"> [{{ node.y_offset }}] </li>
+
                 <br>
                 <li>source: {{ node.src }}</li>
                 <li>
@@ -55,7 +61,7 @@ export default {
             for (var i = this.childNodes.length - 1; i >= 0; i--) {
                 var node = this.childNodes[i]
                 this.children += `
-            <c-layer id="` + node.id + `" src="` + node.src + `" color="` + node.color + `" z_depth="0.0" scale="1.0">
+            <c-layer id="` + node.id + `" src="` + node.src + `" color="` + node.color + `" z_depth="0.0" x_offset="` + node.x_offset + `" y_offset="` + node.y_offset + `" scale="1.0">
             <c-animation type="explode" duration="` + node.explodeDur + `" delay="` + node.explodeDel + `" looping="true"></c-animation>
             <c-animation type="spin" duration="` + node.spinDur + `" delay="` + node.spinDel + `" looping="true"></c-animation>
             <c-animation type="fade-in" duration="` + node.fadeDur + `" delay="` + node.fadeDel + `" looping="true"></c-animation>
@@ -72,7 +78,9 @@ export default {
                 "spinDur": "4.0",
                 "spinDel": "4.0",
                 "fadeDur": "4.0",
-                "fadeDel": "0"
+                "fadeDel": "0",
+                "x_offset":"0",
+                "y_offset":"0"
             }
             this.childNodes.push(node)
             this.render()
